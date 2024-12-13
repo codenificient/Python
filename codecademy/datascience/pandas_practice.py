@@ -156,3 +156,201 @@ orders["salutation"] = orders.apply(salulambda,axis=1)
 
 print(orders.head())
 
+import codecademylib3
+import pandas as pd
+
+inventory = pd.read_csv("inventory.csv")
+print(inventory.head(10))
+
+staten_island = inventory[inventory.location == "Staten Island"]
+
+product_request = staten_island["product_description"]
+
+seed_request = inventory[(inventory.location == "Brooklyn") & (inventory.product_type == "seeds")]
+
+inventory["in_stock"] = inventory["quantity"] > 0
+
+# print(inventory)
+inventory["total_value"] = inventory["quantity"] * inventory["price"]
+# print(inventory)
+combine_lambda = lambda row: \
+    '{} - {}'.format(row.product_type,
+                     row.product_description)
+
+inventory["full_description"] = inventory.apply(combine_lambda, axis=1)
+
+import codecademylib3
+import pandas as pd
+
+orders = pd.read_csv('orders.csv')
+print(orders.head(10))
+
+most_expensive = orders.price.max()
+num_colors = orders.shoe_color.nunique()
+
+import codecademylib3
+import pandas as pd
+
+orders = pd.read_csv('orders.csv')
+pricey_shoes = orders.groupby("shoe_type").price.max()
+print(pricey_shoes)
+
+print(type(pricey_shoes))
+
+import codecademylib3
+import pandas as pd
+
+orders = pd.read_csv('orders.csv')
+
+pricey_shoes = orders.groupby('shoe_type').price.max()
+pricey_shoes = orders.reset_index()
+print(pricey_shoes)
+print(type(pricey_shoes))
+
+import codecademylib3
+import numpy as np
+import pandas as pd
+
+orders = pd.read_csv('orders.csv')
+cheap_shoes = orders.groupby("shoe_color").price.apply(lambda x: np.percentile(x,25)).reset_index()
+print(cheap_shoes)
+
+
+import codecademylib3
+import numpy as np
+import pandas as pd
+
+orders = pd.read_csv('orders.csv')
+shoe_counts = orders.groupby(["shoe_type", "shoe_color"]).id.count().reset_index()
+print(shoe_counts)
+
+import codecademylib3
+import numpy as np
+import pandas as pd
+
+orders = pd.read_csv('orders.csv')
+
+shoe_counts = orders.groupby(['shoe_type', 'shoe_color']).id.count().reset_index()
+
+shoe_counts_pivot = shoe_counts.pivot(columns="shoe_color", index="shoe_type", values="id").reset_index()
+# print(shoe_counts)
+print(shoe_counts_pivot)
+
+import codecademylib3
+import pandas as pd
+
+user_visits = pd.read_csv('page_visits.csv')
+
+print(user_visits.head())
+
+click_source = user_visits.groupby("utm_source").id.count().reset_index()
+print(click_source)
+
+click_source_by_month = user_visits.groupby(["utm_source", "month"]).id.count().reset_index()
+
+click_source_by_month_pivot = click_source_by_month.pivot(columns="month", index="utm_source", values="id").reset_index()
+print(click_source_by_month_pivot)
+
+
+
+import codecademylib3
+import pandas as pd
+
+ad_clicks = pd.read_csv('ad_clicks.csv')
+print(ad_clicks.head())
+
+click_source = ad_clicks.groupby("utm_source").user_id.count().reset_index()
+# print(click_source)
+
+ad_clicks["is_click"] = ~ad_clicks["ad_click_timestamp"].isnull()
+# print(ad_clicks)
+
+clicks_by_source = ad_clicks.groupby(["utm_source", "is_click"]).user_id.count().reset_index()
+# print(clicks_by_source)
+
+clicks_pivot = clicks_by_source.pivot(columns="is_click", index="utm_source", values="user_id").reset_index()
+# print(clicks_pivot)
+
+clicks_pivot["percent_clicked"] = clicks_pivot[True] / (clicks_pivot[True] + clicks_pivot[False])
+# print(clicks_pivot)
+
+adgroups = ad_clicks.groupby("experimental_group").user_id.count().reset_index()
+# print(adgroups)
+
+ads_clicks_groups = ad_clicks.groupby(["experimental_group", "is_click"]).user_id.count().reset_index()
+# print(ads_clicks_groups)
+
+a_clicks = ad_clicks[ad_clicks.experimental_group == "A"]
+b_clicks = ad_clicks[ad_clicks.experimental_group == "B"]
+print(a_clicks)
+print(b_clicks)
+
+a_clicks_by_day = a_clicks.groupby("day").user_id.count().reset_index()
+b_clicks_by_day = b_clicks.groupby("day").user_id.count().reset_index()
+# print(a_clicks_by_day)
+# print(b_clicks_by_day)
+
+
+# Does not work
+import codecademylib3
+import pandas as pd
+
+orders = pd.read_csv('orders.csv')
+
+products = pd.read_csv('products.csv')
+
+customers = pd.read_csv('customers.csv')
+
+print(orders)
+print(products)
+# print(customers)
+
+current_order = orders[orders.order_id == 3]
+# print(current_order)
+
+order_3_description = products[products["product_id"] == current_order["product_id"]]
+print(order_3_description)
+
+
+import codecademylib3
+import pandas as pd
+
+sales = pd.read_csv('sales.csv')
+print(sales)
+targets = pd.read_csv('targets.csv')
+print(targets)
+
+sales_vs_targets = pd.merge(sales,targets)
+print(sales_vs_targets)
+
+crushing_it = sales_vs_targets[sales_vs_targets["revenue"] > sales_vs_targets["target"]]
+
+
+import codecademylib3
+import pandas as pd
+
+sales = pd.read_csv('sales.csv')
+print(sales)
+targets = pd.read_csv('targets.csv')
+print(targets)
+
+men_women = pd.read_csv("men_women_sales.csv")
+all_data = sales.merge(targets).merge(men_women)
+print(all_data)
+
+results = all_data[(all_data.revenue > all_data.target) & (all_data.women > all_data.men) ]
+print(results)
+
+
+
+import codecademylib3
+import pandas as pd
+
+orders = pd.read_csv('orders.csv')
+print(orders)
+products = pd.read_csv('products.csv')
+print(products)
+
+orders_products = orders.merge(products.rename(columns={"id": "product_id"}))
+
+print(orders_products)
