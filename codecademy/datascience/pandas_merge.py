@@ -28,7 +28,6 @@ results = all_data[(all_data.revenue > all_data.target) & (all_data.women > all_
 print(results)
 
 
-
 import codecademylib3
 import pandas as pd
 
@@ -69,6 +68,7 @@ merged_df = pd.merge(orders, products)
 
 print(merged_df)
 
+
 # OUTER MERGE
 import codecademylib3
 import pandas as pd
@@ -80,6 +80,7 @@ print(store_b)
 
 store_a_b_outer = pd.merge(store_a, store_b, how="outer")
 print(store_a_b_outer)
+
 
 # LEFT, RIGHT MERGE
 import codecademylib3
@@ -95,6 +96,7 @@ store_b_a_left = pd.merge(store_b, store_a, how="left")
 
 print(store_a_b_left)
 print(store_b_a_left)
+
 
 # PANDAS CONCAT
 import codecademylib3
@@ -125,3 +127,4 @@ v_to_c = pd.merge(visits, checkouts)
 v_to_c["time"] = v_to_c["checkout_time"] - v_to_c["visit_time"]
 print(v_to_c)
 print(v_to_c.time.mean())
+
