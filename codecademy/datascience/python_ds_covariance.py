@@ -44,3 +44,34 @@ plt.xlabel('Number of beds')
 plt.ylabel('Number of sqfeet')
 plt.scatter(x=housing.beds, y=housing.sqfeet)
 plt.show()
+
+# Correlation p2
+import pandas as pd
+import matplotlib.pyplot as plt 
+import codecademylib3
+from scipy.stats import pearsonr
+
+sleep = pd.read_csv('sleep_performance.csv')
+
+# create your scatter plot here:
+print(sleep.head())
+
+plt.scatter(x=sleep.hours_sleep,y=sleep.performance)
+plt.show()
+
+
+# calculate the correlation for `hours_sleep` and `performance`:
+corr_sleep_performance, p = pearsonr(sleep.hours_sleep, sleep.performance)
+
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt 
+import seaborn as sns
+import codecademylib3
+from scipy.stats import pearsonr
+np.set_printoptions(suppress=True, precision = 1) 
+
+penguins = pd.read_csv('penguins.csv')
+
+
