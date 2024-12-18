@@ -151,3 +151,4 @@ df = pd.DataFrame([
 
 january_february_march = df[df.month.isin(["January", "February", "March"])]
 print(january_february_march)
+

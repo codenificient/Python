@@ -63,6 +63,9 @@ diabetes["Outcome"] = diabetes.Outcome.astype("int")
 
 print(diabetes.Outcome.unique())
 
+
+
+
 """
 `After replacing the letter o with zeros, we are able to convert the column to the integer data type`
 """

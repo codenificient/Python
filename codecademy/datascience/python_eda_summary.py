@@ -108,3 +108,5 @@ plt.close()
 movies.genre.value_counts().plot.pie()
 plt.show()
 plt.close()
+
+

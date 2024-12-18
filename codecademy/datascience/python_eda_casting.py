@@ -150,3 +150,4 @@ print(census['higher_tax'].median())
 
 census = pd.get_dummies(data=census, columns=["marital_status"])
 print(census.head())
+
